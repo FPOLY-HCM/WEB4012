@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layout>
     <div class="mx-auto max-w-7xl px-6 sm:px-8 mt-8 sm:mt-12">
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
             <div class="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-5 gap-5">
@@ -140,7 +140,7 @@
         </div>
     </div>
 
-    <div class="mx-auto max-w-7xl px-6 sm:px-8 py-16 lg:py-28">
+    <div class="mx-auto max-w-7xl px-6 sm:px-8 py-10">
         <div class="Heading relative flex flex-col sm:flex-row sm:items-end justify-between mb-10 md:mb-12 text-neutral-900 dark:text-neutral-50">
             <div class="max-w-2xl">
                 <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold">Danh mục nổi bật</h2>
@@ -154,9 +154,9 @@
                     <ul class="swiper-wrapper relative whitespace-nowrap -mx-2 xl:-mx-4">
                         @foreach($categories as $category)
                             <li class="swiper-slide relative inline-block px-2 xl:px-4 whitespace-normal w-1/5 translate-x-0">
-                                <a class="flex flex-col" href="/archive/the-demo-archive-slug">
+                                <a class="flex flex-col" href="{{ route('categories.show', $category) }}">
                                     <div class="flex-shrink-0 relative w-full aspect-w-7 aspect-h-5 h-0 rounded-3xl overflow-hidden group">
-                                        <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=550&amp;q=80" class="object-cover w-full h-full rounded-2xl absolute inset-0" alt="{{ $category->name }}" />
+                                        <img src="{{ $category->image }}" class="object-cover w-full h-full rounded-2xl absolute inset-0" alt="{{ $category->name }}" />
                                         <span class="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"></span>
                                     </div>
                                     <div class="flex items-center mt-5">
@@ -179,4 +179,53 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+
+    <div class="mx-auto max-w-7xl px-6 sm:px-8 flex flex-col py-10 lg:flex-row">
+        <div class="w-full lg:w-3/5 xl:w-2/3 xl:pr-20">
+            <x-posts :posts="$recentPosts" :per-row="3" />
+        </div>
+        <div class="w-full mt-12 lg:mt-0 lg:w-2/5 lg:pl-10 xl:pl-0 xl:w-1/3">
+            <div class="space-y-6">
+                <div class="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+                    <div class="flex items-center justify-between p-4 xl:p-5 border-b border-neutral-200 dark:border-neutral-700">
+                        <h2 class="text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow">💡 More tags</h2>
+                        <a class="flex-shrink-0 block text-primary-700 dark:text-primary-500 font-semibold text-sm" rel="noopener noreferrer" href="/">View all</a>
+                    </div>
+                    <div class="flex flex-wrap p-4 xl:p-5">
+                        @foreach($tags as $tag)
+                            <a class="inline-block bg-white hover:bg-neutral-50 text-sm text-neutral-600 dark:text-neutral-300 py-2 px-3 rounded-lg md:py-2.5 md:px-4 dark:bg-neutral-900 mr-2 mb-2" href="/archive/the-demo-archive-slug">
+                                {{ $tag->name }}
+                                <span class="text-xs font-normal">({{ $tag->posts_count }})</span>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+                    <div class="flex items-center justify-between p-4 xl:p-5 border-b border-neutral-200 dark:border-neutral-700">
+                        <h2 class="text-lg text-neutral-900 dark:text-neutral-100 font-semibold flex-grow">✨ Danh mục nổi bật</h2>
+                        <a class="flex-shrink-0 block text-primary-700 dark:text-primary-500 font-semibold text-sm" rel="noopener noreferrer" href="/">Xem tất cả</a>
+                    </div>
+                    <div class="flow-root">
+                        <div class="flex flex-col divide-y divide-neutral-200 dark:divide-neutral-700">
+                            @foreach($categories as $category)
+                                <a class="flex items-center p-4 xl:p-5 hover:bg-neutral-200 dark:hover:bg-neutral-700" href="{{ route('categories.show', $category) }}">
+                                    <div class="relative flex-shrink-0 w-12 h-12 rounded-lg mr-4 overflow-hidden">
+                                        <img
+                                            src="{{ $category->image }}"
+                                            alt="{{ $category->name }}"
+                                            class="object-cover absolute inset-0 w-full h-full"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-base nc-card-title text-neutral-900 dark:text-neutral-100 font-medium sm:font-semibold">{{ $category->name }}</h2>
+                                        <span class="text-xs block mt-0.5 text-neutral-500 dark:text-neutral-400">{{ $category->posts_count }} Bài viết</span>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-layout>

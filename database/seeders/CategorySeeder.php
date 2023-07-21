@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use MarkSitko\LaravelUnsplash\Facades\Unsplash;
 
 class CategorySeeder extends Seeder
 {
@@ -31,11 +32,23 @@ class CategorySeeder extends Seeder
             'Video games',
         ];
 
+        $images = Unsplash::randomPhoto()
+            ->orientation('landscape')
+            ->term('people')
+            ->randomPhoto()
+            ->perPage(100)
+            ->count(100)
+            ->quantity(1000)
+            ->toCollection()
+            ->pluck('urls.regular');
+
         foreach ($categories as $category) {
             Category::query()->create([
                 'name' => $category,
                 'slug' => Str::slug($category),
                 'is_featured' => fake()->boolean(),
+                'image' => $images->random(),
+                'color' => fake()->hexColor(),
             ]);
         }
     }

@@ -8,8 +8,8 @@
 
         @vite(['resources/js/app.js', 'resources/sass/app.scss'])
     </head>
-    <body class="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-        <x-layouts.header />
+    <body class="bg-gray-50 text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+        <x-header />
         {{ $slot }}
     </body>
 </html>
