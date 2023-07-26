@@ -1,10 +1,7 @@
-import Alpine from 'alpinejs'
 import Swiper from 'swiper'
 import 'swiper/css'
 import {Navigation} from "swiper/modules";
 import hljs from 'highlight.js/lib/common'
-
-window.Alpine = Alpine
 
 new Swiper('.swiper', {
     modules: [Navigation],
@@ -16,5 +13,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
         hljs.highlightElement(el);
     });
 });
-
-Alpine.start()

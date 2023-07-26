@@ -26,6 +26,7 @@ return new class () extends Migration {
             $table->string('thumbnail')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->string('status')->default(PostStatus::Draft->value);
+            $table->integer('likes')->default(0);
             $table->timestamps();
         });
     }

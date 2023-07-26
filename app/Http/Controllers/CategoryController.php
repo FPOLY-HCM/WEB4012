@@ -15,7 +15,7 @@ class CategoryController extends Controller
             ->withCount('posts')
             ->firstOrFail();
 
-        $posts = $category->posts()->paginate();
+        $posts = $category->posts()->paginate(5);
 
         return view('categories.show', compact('category', 'posts'));
     }

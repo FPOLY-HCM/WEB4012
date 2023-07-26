@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Enums\PostStatus;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
@@ -24,6 +25,7 @@ class PostSeeder extends Seeder
 
         $categoriesCount = Category::query()->count();
         $usersCount = User::query()->count();
+        $tagsCount = Tag::query()->count();
 
         $posts = [
             '10 Cách để Nâng cao Sức khỏe của Bạn',
@@ -147,7 +149,7 @@ class PostSeeder extends Seeder
         $images = $images->flatten();
 
         foreach ($posts as $title) {
-            Post::query()->create([
+            $post = Post::query()->create([
                 'category_id' => rand(1, $categoriesCount),
                 'author_id' => rand(1, $usersCount),
                 'title' => $title,
@@ -157,7 +159,10 @@ class PostSeeder extends Seeder
                 'content' => File::get(database_path(sprintf('seeders/posts/post-%s.md', rand(1, 5)))),
                 'is_featured' => fake()->boolean(),
                 'status' => PostStatus::Published,
+                'likes' => rand(10, 10000),
             ]);
+
+            $post->tags()->attach(rand(1, $tagsCount));
         }
     }
 }

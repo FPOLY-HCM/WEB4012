@@ -5,6 +5,8 @@ declare(strict_types=1);
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Livewire\Posts\Create;
+use App\Livewire\Posts\Index;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,4 +22,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 Route::get('categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('posts', Index::class)->name('posts.index');
+Route::get('posts/create', Create::class)->name('posts.create');
 Route::get('posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');

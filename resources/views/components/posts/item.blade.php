@@ -26,8 +26,8 @@
         </div>
     </span>
     <div class="p-4 flex flex-col space-y-3">
-        <div class="inline-flex items-center flex-wrap text-neutral-800 dark:text-neutral-200 leading-none text-xs">
-            <a class="relative flex items-center space-x-2" href="/author/the-demo-author-slug">
+        <div class="inline-flex items-center flex-wrap truncate text-neutral-800 dark:text-neutral-200 leading-none text-xs">
+            <a class="relative flex items-center space-x-2" href="{{ route('posts.show', $post) }}">
                 <div
                     class="relative flex-shrink-0 inline-flex items-center justify-center overflow-hidden text-neutral-100 uppercase font-semibold shadow-inner rounded-full h-7 w-7 text-sm ring-1 ring-white dark:ring-neutral-900"
                 >
@@ -39,7 +39,8 @@
                 </div>
                 <span class="block text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium">{{ $post->author->name }}</span>
             </a>
-            <span class="text-neutral-500 dark:text-neutral-400 mx-[6px] font-medium">·</span><span class="text-neutral-500 dark:text-neutral-400 font-normal">{{ $post->created_at->format('M, d Y') }}</span>
+            <span class="text-neutral-500 dark:text-neutral-400 mx-[6px] font-medium">·</span>
+            <span class="text-neutral-500 dark:text-neutral-400 font-normal">{{ $post->created_at->format('M, d Y') }}</span>
         </div>
         <h3 class="block text-base font-semibold text-neutral-900 dark:text-neutral-100">
             <span class="line-clamp-2" title="{{ $post->title }}">{{ $post->title }}</span>
@@ -51,7 +52,7 @@
                     title="{{ __('Liked') }}"
                 >
                     <x-lineicons-heart class="w-4 h-4 fill-current" />
-                    <span class="ml-1 text-neutral-900 dark:text-neutral-200">34</span>
+                    <span class="ml-1 text-neutral-900 dark:text-neutral-200">{{ number_format($post->likes) }}</span>
                 </button>
             </div>
             <div class="nc-PostCardSaveAction flex items-center space-x-2 text-xs text-neutral-700 dark:text-neutral-300 relative">

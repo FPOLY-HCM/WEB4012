@@ -1,4 +1,5 @@
-<x-layout>
+<x-layouts.app>
+    <x-slot:title>{{ $post->title }}</x-slot:title>
     <div class="max-w-7xl mx-auto px-6 sm:px-8 pt-8 lg:pt-16">
         <header class="container rounded-xl">
             <div class="max-w-screen-md mx-auto">
@@ -47,7 +48,7 @@
                                             title="Liked"
                                         >
                                             <x-lineicons-heart class="w-4 h-4 fill-current" />
-                                            <span class="ml-1 text-neutral-900 dark:text-neutral-200">34</span>
+                                            <span class="ml-1 text-neutral-900 dark:text-neutral-200">{{ number_format($post->likes) }}</span>
                                         </button>
                                     </div>
                                 </div>
@@ -92,4 +93,4 @@
             <x-posts :posts="$relatedPosts" />
         </div>
     </div>
-</x-layout>
+</x-layouts.app>
