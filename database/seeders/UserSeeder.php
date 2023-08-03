@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
 
         User::query()->create([
             'name' => 'Ngo Quoc Dat',
-            'email' => 'datlechin@gmail.com',
+            'email' => 'datnqp05994@fpt.edu.vn',
             'email_verified_at' => now(),
             'password' => '123456',
         ]);

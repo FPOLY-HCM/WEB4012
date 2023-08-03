@@ -50,9 +50,9 @@
                     </div>
 
                     <div>
-                        <button class="p-3 hover:bg-gray-100 rounded-full">
+                        <a href="{{ Auth::check() ? route('profile.edit') : route('login') }}" class="block p-3 hover:bg-gray-100 rounded-full">
                             <x-lineicons-user class="w-5 h-5" />
-                        </button>
+                        </a>
                     </div>
                 </div>
             </nav>
