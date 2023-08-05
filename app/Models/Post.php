@@ -20,6 +20,7 @@ class Post extends Model
 
     protected $casts = [
         'views' => 'int',
+        'likes' => 'int',
         'is_featured' => 'bool',
         'status' => PostStatus::class,
     ];

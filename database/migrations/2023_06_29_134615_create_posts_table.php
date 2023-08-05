@@ -17,16 +17,16 @@ return new class () extends Migration {
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Category::class)->nullable()->constrained();
-            $table->foreignIdFor(User::class, 'author_id')->constrained('users');
+            $table->foreignIdFor(Category::class)->nullable();
+            $table->foreignIdFor(User::class, 'author_id');
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('content')->nullable();
             $table->integer('views')->default(0);
+            $table->integer('likes')->default(0);
             $table->string('thumbnail')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->string('status')->default(PostStatus::Draft->value);
-            $table->integer('likes')->default(0);
             $table->timestamps();
         });
     }
