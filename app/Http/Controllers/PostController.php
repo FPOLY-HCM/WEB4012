@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Enums\PostStatus;
 use App\Models\Post;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -25,6 +26,14 @@ class PostController extends Controller
             ->with(['category', 'author'])
             ->limit(4)
             ->get();
+
+        $key = "post_$post->id";
+
+        if (! Session::has($key)) {
+            Session::put($key, now()->toDateTimeString());
+
+            $post->increment('views');
+        }
 
         return view('posts.show', compact('post', 'relatedPosts'));
     }
