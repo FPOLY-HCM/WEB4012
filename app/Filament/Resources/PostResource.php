@@ -13,6 +13,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Support\Str;
 use Filament\Tables\Table;
 
@@ -32,9 +33,11 @@ class PostResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('category_id')
                             ->label('Danh mục')
+                            ->native(false)
                             ->relationship('category', 'name'),
                         Forms\Components\Select::make('author_id')
                             ->label('Tác giả')
+                            ->native(false)
                             ->relationship('author', 'name')
                             ->required(),
                         Forms\Components\TextInput::make('title')
@@ -53,11 +56,12 @@ class PostResource extends Resource
                         Forms\Components\FileUpload::make('thumbnail')
                             ->image()
                             ->columnSpanFull(),
-                        Forms\Components\TextInput::make('status')
+                        Forms\Components\Select::make('status')
+                            ->options(PostStatus::class)
+                            ->native(false)
                             ->label('Trạng thái')
                             ->required()
                             ->columnSpanFull()
-                            ->maxLength(255)
                             ->default(PostStatus::Published),
                         Forms\Components\Toggle::make('is_featured')
                             ->label('Nổi bật')
@@ -106,6 +110,7 @@ class PostResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
